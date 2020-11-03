@@ -11,10 +11,17 @@ const Sidebar = () => {
       <div className="aside-header">
         <FaRegComments className="app-icon" />
       </div>
+      <div className="spacer10"></div>
+      <div className="spacer10"></div>
+      <div className="spacer10"></div>
       <div className="aside-menu">
-        <FaRegCommentDots className="menu-icon" />
-        <FaRegCommentDots className="menu-icon" />
-        <FaRegCommentDots className="menu-icon" />
+        <button className="btn btn-primary menu-item active">
+          <FaRegCommentDots className="menu-icon" />
+        </button>
+        <div className="spacer10"></div>
+        <button className="btn btn-primary menu-item">
+          <FaRegCommentDots className="menu-icon" />
+        </button>
       </div>
       <div className="aside-footer">
         <FaRegUserCircle className="footer-icon" />

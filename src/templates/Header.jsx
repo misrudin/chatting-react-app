@@ -1,5 +1,5 @@
 import React from "react";
-import { FiSearch, FiMoreHorizontal, FiPhone } from "react-icons/fi";
+import { FiMoreHorizontal, FiPhone, FiCheckCircle } from "react-icons/fi";
 
 const Header = () => {
   return (
@@ -10,18 +10,20 @@ const Header = () => {
           alt="user-pic"
           className="header-user-image"
         />
-        <p className="header-user-name">Kanjut Kundang</p>
+        <p className="header-user-name">User Name</p>
       </div>
       <div className="header-options">
-        <div className="header-op-search">
-          <FiSearch />
-        </div>
-        <div className="header-op-call">
+        <button className="btn btn-outline-primary header-op-search custom-btn">
+          <FiCheckCircle />
+        </button>
+
+        <button className="btn btn-outline-warning header-op-call custom-btn">
           <FiPhone />
-        </div>
-        <div className="header-op-more">
+        </button>
+
+        <button className="btn btn-outline-light header-op-more custom-btn">
           <FiMoreHorizontal />
-        </div>
+        </button>
       </div>
     </div>
   );

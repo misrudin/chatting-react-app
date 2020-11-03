@@ -1,26 +1,32 @@
 //Mark - Variable
 $primary-dark: #485056;
+$primary-bg: #1b2335;
+$border-color: #293244;
+$text-color: #c5c8cc;
+$primary-blue: #0a80ff;
+$info: rgb(40, 167, 69);
+$warning: #ffc007;
 
 // MARK - App (Main)
 .app {
-  background-color: #f4f7fb;
   display: flex;
   width: 100vw;
   height: 100vh;
   &-sidebar {
-    background-color: #fff;
+    background-color: $primary-bg;
     width: 80px;
-    box-shadow: 0px 0px 5px rgba($color: #000000, $alpha: 0.1);
     padding: 20px 10px;
   }
   &-list {
     width: 350px;
-    padding: 20px 10px;
+    padding-top: 20px;
+    background-color: $primary-bg;
+    border-left: 1px solid $border-color;
+    border-right: 1px solid $border-color;
   }
   &-main {
-    background-color: #fff;
+    background-color: $primary-bg;
     width: calc(100vw - 350px - 80px);
-    box-shadow: 0px 0px 5px rgba($color: #000000, $alpha: 0.1);
   }
 }
 
@@ -32,11 +38,10 @@ $primary-dark: #485056;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   &-header {
     .app-icon {
       font-size: 40px;
-      color: rebeccapurple;
+      color: $primary-blue;
     }
   }
 
@@ -44,16 +49,33 @@ $primary-dark: #485056;
     height: 40%;
     display: flex;
     flex-direction: column;
+    flex: 1;
+    .menu-item {
+      width: 60px;
+      height: 50px;
+      background-color: rgba($color: $primary-bg, $alpha: 0.5);
+      border: none;
+    }
+    .menu-item:hover {
+      background-color: rgba($color: $border-color, $alpha: 0.5);
+      color: $text-color;
+    }
+    .menu-item:active,
+    .menu-item.active {
+      background-color: $primary-blue;
+      color: $text-color;
+    }
     .menu-icon {
-      font-size: 25px;
-      color: salmon;
-      margin: 20px 0;
+      // color: salmon;
+      // margin: 20px 0;
+      color: $text-color;
     }
   }
 
   &-footer {
     display: flex;
     flex-direction: column;
+    background-color: $warning;
     .footer-icon {
       font-size: 25px;
     }
@@ -63,40 +85,78 @@ $primary-dark: #485056;
 // MARK - List
 
 .list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   &-title {
     font-weight: 600;
-    color: $primary-dark;
+    color: $text-color;
+    margin: 0;
+    padding: 0;
   }
 
-  &-subtitle {
-    font-weight: 600;
-    color: $primary-dark;
-  }
-
-  .search {
-    background-color: #e6ebf5;
-    padding: 24px 10px;
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-  }
-  .input-group-text {
-    border: none;
-    background-color: #e6ebf5;
+  &-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    border-radius: 8px;
-    .icon {
-      color: #7a809a;
-      font-size: 18px;
+    color: $text-color;
+    padding: 0 20px;
+
+    .custom-btn {
+      border-color: $border-color;
+      color: $text-color;
+      position: relative;
     }
+    .custom-btn:hover {
+      background-color: rgba($color: $border-color, $alpha: 0.5);
+      color: $text-color;
+    }
+    .custom-badge {
+      background-color: $primary-blue;
+      color: $text-color;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      border: 1px solid $border-color;
+    }
+  }
+
+  &-search {
+    padding: 0 20px;
+    .search {
+      background-color: $primary-bg;
+      padding: 20px 10px;
+      border: 1px solid $border-color;
+      border-radius: 5px;
+      font-size: 14px;
+      color: $text-color;
+    }
+    .search:focus {
+      border: 1px solid $primary-blue;
+    }
+    .input-group-text {
+      border: none;
+      background-color: #e6ebf5;
+      display: flex;
+      align-items: center;
+      border-radius: 8px;
+      .icon {
+        color: #7a809a;
+        font-size: 18px;
+      }
+    }
+  }
+
+  &-people {
+    overflow-y: auto;
+    flex: 1;
   }
 }
 
 // MARK - Header
 .header {
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
+  background-color: $primary-bg;
+  border-bottom: 1px solid $border-color;
   padding: 15px 15px;
   display: flex;
   justify-content: space-between;
@@ -106,15 +166,14 @@ $primary-dark: #485056;
     align-items: center;
   }
   &-user-image {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background-color: lightblue;
     overflow: hidden;
   }
   &-user-name {
     font-weight: 600;
-    color: $primary-dark;
+    color: $text-color;
     padding: 0;
     margin: 0;
     margin-left: 15px;
@@ -130,18 +189,35 @@ $primary-dark: #485056;
     align-items: center;
   }
   &-op-search {
-    font-size: 20px;
+    color: $info;
     margin-right: 20px;
     cursor: pointer;
   }
   &-op-call {
-    font-size: 20px;
     margin-right: 20px;
     cursor: pointer;
+    color: $warning;
   }
   &-op-more {
-    font-size: 20px;
     cursor: pointer;
+    color: $text-color;
+  }
+
+  &-op-search:hover {
+    color: $info;
+  }
+  &-op-call:hover {
+    color: $warning;
+  }
+  &-op-more:hover {
+    color: $text-color;
+  }
+
+  .custom-btn {
+    border-color: $border-color;
+  }
+  .custom-btn:hover {
+    background-color: rgba($color: $border-color, $alpha: 0.5);
   }
 }
 

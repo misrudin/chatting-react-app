@@ -1,14 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/auth.scss";
 import { FaUserAlt, FaLock } from "react-icons/fa";
+import { loginApi } from "../../api";
+import { storeData } from "../../utils";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const onLoginClick = async (e) => {
+    e.preventDefault();
+    let data = {
+      email: email,
+      password: password,
+    };
+    setLoading(true);
+    await loginApi(data)
+      .then((res) => {
+        setLoading(false);
+        let response = res.data;
+        if (response.status === 200) {
+          setError(null);
+          storeData("userData", response.result);
+        } else {
+          setError(response.error);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+      });
+  };
+
   return (
     <div className="login-container">
       <h4 className="title-login">Sign in</h4>
       <p className="text-login">Sign in to continue to Chat.</p>
       <div className="card-login">
-        <form>
+        <form onSubmit={onLoginClick}>
           <div className="form-group">
             <label className="lable" htmlFor="email">
               Email
@@ -21,10 +52,12 @@ const LoginPage = () => {
               </div>
               <input
                 type="email"
-                className="form-control is-valid"
+                className="form-control"
                 id="email"
                 placeholder="Enter Email"
                 autoComplete="off"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -44,15 +77,19 @@ const LoginPage = () => {
               </div>
               <input
                 type="password"
-                className="form-control is-invalid"
+                className="form-control"
                 id="password"
                 placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            {/* <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
-            </small> */}
+            {error && (
+              <small id="emailHelp" className="form-text text-danger">
+                {error}
+              </small>
+            )}
           </div>
 
           <div className="form-group">
@@ -74,6 +111,7 @@ const LoginPage = () => {
         </form>
       </div>
       <p className="text-login bottom">Don't have an account ?</p>
+      {loading && <h1>Loading</h1>}
     </div>
   );
 };

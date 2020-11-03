@@ -1,30 +1,37 @@
 import React from "react";
-import { FiSearch } from "react-icons/fi";
+import { FiMessageSquare } from "react-icons/fi";
+import { ListOfPeople } from "../components";
 
 const List = () => {
   return (
     <div className="list">
-      <h4 className="list-title">Chats</h4>
+      <div className="list-header">
+        <h4 className="list-title">Chats</h4>
+        <button className="btn btn-outline-light custom-btn">
+          <FiMessageSquare />{" "}
+          <span className="badge badge-primary custom-badge">9+</span>
+        </button>
+      </div>
       {/* search */}
-      <div className="form-group">
-        <div className="input-group mb-2">
-          <div className="input-group-prepend">
-            <div className="input-group-text">
-              <FiSearch className="icon" />
-            </div>
-          </div>
+      <div className="spacer10"></div>
+      <div className="spacer10"></div>
+      <div className="spacer10"></div>
+      <div className="list-search">
+        <div className="form-group">
           <input
             type="text"
             className="form-control search"
             id="search"
             name="search"
             autoComplete="off"
-            placeholder="Search messages for users"
+            placeholder="Search chats"
           />
         </div>
       </div>
       {/* recent */}
-      <p className="list-subtitle">Recent</p>
+      <div className="list-people">
+        <ListOfPeople />
+      </div>
     </div>
   );
 };

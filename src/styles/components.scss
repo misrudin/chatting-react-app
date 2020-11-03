@@ -1,0 +1,79 @@
+//Mark - Variable
+$primary-dark: #485056;
+$primary-bg: #1b2335;
+$border-color: #293244;
+$text-color: #c5c8cc;
+$primary-blue: #0a80ff;
+$info: rgb(40, 167, 69);
+$warning: #ffc007;
+$selected: #20283a;
+
+.people-container {
+  background-color: $border-color;
+}
+
+.people {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid $border-color;
+
+  &-img {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: $primary-dark;
+    margin-right: 10px;
+  }
+
+  &-detail {
+    flex: 1;
+    max-width: calc(100% - 40px - 70px);
+    .people-detail-name {
+      margin: 0;
+      padding: 0;
+      font-weight: 600;
+      color: $primary-blue;
+    }
+    .people-detail-chat {
+      margin: 0;
+      padding: 0;
+      font-weight: 500;
+      font-size: 14px;
+      color: $text-color;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &-chat-time {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    .custom-badge {
+      background-color: $primary-blue;
+      color: $text-color;
+      border-radius: 50%;
+      height: 20px;
+      width: 20px;
+      padding: 0;
+      margin: 0;
+      line-height: 20px;
+      text-align: center;
+    }
+    .chat-time {
+      margin: 0;
+      padding: 0;
+      font-weight: 600;
+      font-size: 10px;
+      color: $primary-blue;
+      width: 100%;
+      margin-top: 5px;
+    }
+  }
+}
