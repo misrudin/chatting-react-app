@@ -8,6 +8,50 @@ $info: rgb(40, 167, 69);
 $warning: #ffc007;
 
 .main-content {
-  height: 100%;
+  height: calc(100vh - 70px);
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.main-footer {
+  background-color: $primary-bg;
+  border-top: 1px solid $border-color;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  position: relative;
+  box-sizing: border-box;
+  .custom-btn {
+    border-color: $border-color;
+    color: $text-color;
+    height: 40px;
+  }
+  .custom-btn:hover,
+  .custom-btn:active {
+    background-color: rgba($color: $border-color, $alpha: 0.5);
+    color: $text-color;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .input-chat {
+    background-color: $primary-bg;
+    padding: 15px 10px;
+    margin: 0;
+    height: 40px;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    font-size: 14px;
+    color: $text-color;
+  }
+  .input-chat:focus {
+    border: 1px solid $primary-blue;
+  }
 }

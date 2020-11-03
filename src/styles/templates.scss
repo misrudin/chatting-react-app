@@ -7,6 +7,11 @@ $primary-blue: #0a80ff;
 $info: rgb(40, 167, 69);
 $warning: #ffc007;
 
+.message-error {
+  font-weight: 400;
+  font-size: 14px;
+}
+
 // MARK - App (Main)
 .app {
   display: flex;
@@ -27,6 +32,8 @@ $warning: #ffc007;
   &-main {
     background-color: $primary-bg;
     width: calc(100vw - 350px - 80px);
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -51,8 +58,8 @@ $warning: #ffc007;
     flex-direction: column;
     flex: 1;
     .menu-item {
-      width: 60px;
-      height: 50px;
+      width: 50px;
+      height: 40px;
       background-color: rgba($color: $primary-bg, $alpha: 0.5);
       border: none;
     }
@@ -75,9 +82,14 @@ $warning: #ffc007;
   &-footer {
     display: flex;
     flex-direction: column;
-    background-color: $warning;
     .footer-icon {
       font-size: 25px;
+    }
+    .user-image {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
     }
   }
 }
@@ -157,7 +169,8 @@ $warning: #ffc007;
 .header {
   background-color: $primary-bg;
   border-bottom: 1px solid $border-color;
-  padding: 15px 15px;
+  padding: 0 15px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;

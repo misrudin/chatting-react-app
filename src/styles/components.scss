@@ -3,20 +3,27 @@ $primary-dark: #485056;
 $primary-bg: #1b2335;
 $border-color: #293244;
 $text-color: #c5c8cc;
+$text-secondary: #767a86;
 $primary-blue: #0a80ff;
 $info: rgb(40, 167, 69);
 $warning: #ffc007;
 $selected: #20283a;
 
-.people-container {
-  background-color: $border-color;
-}
+// MARK - list people
 
+.people-container {
+  // background-color: $border-color;
+}
+.people:hover,
+.people.selected {
+  background-color: $selected;
+}
 .people {
   display: flex;
   align-items: center;
   padding: 15px 20px;
   border-bottom: 1px solid $border-color;
+  cursor: pointer;
 
   &-img {
     width: 40px;
@@ -30,19 +37,19 @@ $selected: #20283a;
 
   &-detail {
     flex: 1;
-    max-width: calc(100% - 40px - 70px);
+    width: calc(100% - 40px - 70px);
     .people-detail-name {
       margin: 0;
       padding: 0;
       font-weight: 600;
-      color: $primary-blue;
+      color: $text-color;
     }
     .people-detail-chat {
       margin: 0;
       padding: 0;
       font-weight: 500;
-      font-size: 14px;
-      color: $text-color;
+      font-size: 13px;
+      color: $text-secondary;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -71,9 +78,90 @@ $selected: #20283a;
       padding: 0;
       font-weight: 600;
       font-size: 10px;
-      color: $primary-blue;
+      color: $text-secondary;
       width: 100%;
       margin-top: 5px;
     }
   }
+}
+
+// MARK - message
+
+.messages {
+  // background-color: $text-color;
+  flex: 1;
+  padding: 10px 26px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.message {
+  max-width: 80%;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  &-content {
+    margin: 0;
+    padding: 0;
+    color: $text-color;
+    font-weight: 600;
+  }
+  &-time {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: $text-color;
+    font-weight: 500;
+    margin-top: 5px;
+    text-align: right;
+  }
+}
+.message.me {
+  background-color: $border-color;
+  align-self: flex-end;
+  position: relative;
+}
+
+.message.other {
+  background: $primary-blue;
+  align-self: flex-start;
+  position: relative;
+}
+
+.message.boot {
+  background: $primary-bg;
+  align-self: center;
+  text-align: center;
+  .message-content {
+    font-size: 14px;
+  }
+  .message-time {
+    display: none;
+  }
+}
+
+.message.me::before {
+  content: " ";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 6px solid $border-color;
+  border-right: 6px solid transparent;
+  border-top: 6px solid $border-color;
+  border-bottom: 10px solid transparent;
+  right: -7px;
+  top: 0;
+}
+
+.message.other::before {
+  content: " ";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 6px solid transparent;
+  border-right: 6px solid $primary-blue;
+  border-top: 6px solid $primary-blue;
+  border-bottom: 10px solid transparent;
+  left: -7px;
+  top: 0px;
 }
