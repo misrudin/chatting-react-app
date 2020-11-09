@@ -7,26 +7,31 @@ const List = () => {
   const [allData, setAllData] = useState(null);
   const [waiting, setWaiting] = useState(null);
   const [display, setDisplay] = useState("on");
+  const [loading, setLoading] = useState(false);
 
   const getWaiting = useCallback(() => {
+    setLoading(true)
     getDataWaitingChat()
       .then((res) => {
         setAllData(res.data.result);
         setWaiting(res.data.result);
-        console.log(res);
+        setLoading(false)
       })
       .catch((e) => {
+        setLoading(false)
         console.log(e);
       });
   }, []);
 
   const getChatList = useCallback(() => {
+    setLoading(true)
     getDataListChat()
       .then((res) => {
         setAllData(res.data.result);
-        console.log(res.data.result);
+        setLoading(false)
       })
       .catch((e) => {
+        setLoading(false)
         console.log(e);
       });
   }, []);
@@ -50,16 +55,19 @@ const List = () => {
         <button
           className="btn btn-outline-light custom-btn"
           onClick={() => {
-            if (display === "on") {
-              getWaiting();
-              setDisplay("waiting");
-            } else {
-              setDisplay("on");
-              getChatList();
+            if(!loading){
+              if (display === "on") {
+                getWaiting();
+                setDisplay("waiting");
+              } else {
+                setDisplay("on");
+                getChatList();
+              }
             }
           }}
         >
           {display === "on" ? <FiMessageSquare /> : <FiArrowLeft />}
+          {/* {loading && <div className="loader-button"></div>} */}
 
           {waiting && display === "on" && (
             <span className="badge badge-primary custom-badge">
@@ -86,8 +94,13 @@ const List = () => {
           />
         </div>
       </div>
+
+    <div className={`loading-container ${loading ? "show" : "hide"}`}>
+      {loading && <div className="loader"></div>}
+    </div>
+
       {/* recent */}
-      {allData ? (
+      { !loading ? allData ? (
         <div className="list-people">
           <ListOfPeople allData={allData} />
         </div>
@@ -95,7 +108,7 @@ const List = () => {
         <p className="text-center text-muted message-error">
           Chats doesn't extist !
         </p>
-      )}
+      ) : null}
     </div>
   );
 };

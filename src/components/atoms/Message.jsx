@@ -1,9 +1,10 @@
 import React from "react";
 import moment from "moment";
 
-const Message = ({ me, other, boot, content, time }) => {
+const Message = ({ me, other, boot, content, time,onClick }) => {
   return (
     <div
+      onClick={onClick}
       className={`message ${me ? "me" : other ? "other" : boot ? "boot" : ""}`}
     >
       <p className="message-content">{content}</p>

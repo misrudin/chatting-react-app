@@ -5,8 +5,8 @@ import { loginApi } from "../../api";
 import { storeData } from "../../utils";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin1@mail.com");
+  const [password, setPassword] = useState("123");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -19,6 +19,7 @@ const LoginPage = () => {
     setLoading(true);
     await loginApi(data)
       .then((res) => {
+        console.log(res);
         setLoading(false);
         let response = res.data;
         if (response.status === 200) {
@@ -106,12 +107,16 @@ const LoginPage = () => {
           </div>
 
           <button type="submit" className="btn btn-primary btn-block login-btn">
+{
+  loading && <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+}
+          
+
             Sign In
           </button>
         </form>
       </div>
       <p className="text-login bottom">Don't have an account ?</p>
-      {loading && <h1>Loading</h1>}
     </div>
   );
 };

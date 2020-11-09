@@ -1,10 +1,17 @@
 import React from "react";
 import moment from "moment";
 import { noUserImage } from "../../assets";
+import { useDispatch } from "react-redux";
 
 const People = ({ data }) => {
+  const dispatch = useDispatch()
+
+  const handleSelectUser = (data)=>{
+    dispatch({type: "SELECT_USER",data: data})
+  }
+
   return (
-    <div className="people">
+    <div className="people" onClick={()=> handleSelectUser(data)}>
       <img
         src={data?.room_photo ? data?.room_photo : noUserImage}
         className="people-img"

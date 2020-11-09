@@ -141,7 +141,7 @@ $selected: #20283a;
 }
 
 .message.me::before {
-  content: " ";
+  content: ' ';
   width: 0px;
   height: 0px;
   position: absolute;
@@ -154,7 +154,7 @@ $selected: #20283a;
 }
 
 .message.other::before {
-  content: " ";
+  content: ' ';
   width: 0px;
   height: 0px;
   position: absolute;
@@ -164,4 +164,23 @@ $selected: #20283a;
   border-bottom: 10px solid transparent;
   left: -7px;
   top: 0px;
+}
+
+// MARK - Loading css
+.loader {
+  border: 2px solid $border-color;
+  border-top: 2px solid $primary-blue;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

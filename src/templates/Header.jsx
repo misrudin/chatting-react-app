@@ -1,7 +1,8 @@
 import React from "react";
 import { FiMoreHorizontal, FiPhone, FiCheckCircle } from "react-icons/fi";
 
-const Header = () => {
+
+const Header = (data) => {
   return (
     <div className="header">
       <div className="header-user">
@@ -16,7 +17,7 @@ const Header = () => {
         <button className="btn btn-outline-primary header-op-search custom-btn">
           <FiCheckCircle />
         </button>
-
+        <div className="spacer10"></div>
         <button className="btn btn-outline-warning header-op-call custom-btn">
           <FiPhone />
         </button>
