@@ -11,4 +11,4 @@ const ListOfPeople = ({ allData }) => {
   );
 };
 
-export default ListOfPeople;
+export default React.memo(ListOfPeople);

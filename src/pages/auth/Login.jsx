@@ -3,12 +3,14 @@ import "../../styles/auth.scss";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { loginApi } from "../../api";
 import { storeData } from "../../utils";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("admin1@mail.com");
   const [password, setPassword] = useState("123");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch()
 
   const onLoginClick = async (e) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ const LoginPage = () => {
         if (response.status === 200) {
           setError(null);
           storeData("userData", response.result);
+          dispatch({type:"LOGIN"})
         } else {
           setError(response.error);
         }

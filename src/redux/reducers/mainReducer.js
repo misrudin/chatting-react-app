@@ -1,5 +1,6 @@
 const initialValue = {
     selectedUser: null,
+    dataChat: []
   };
   
   const authReducers = (state = initialValue, action) => {
@@ -14,6 +15,24 @@ const initialValue = {
           ...state,
           selectedUser: null,
         };
+
+        case "GET_DATA_CHAT":
+          return {
+            ...state,
+            dataChat: action.data,
+          };
+        case "DELETE_DATA_CHAT":
+          return {
+            ...state,
+            dataChat:null,
+          };
+
+          case "ADD_DATA_CHAT":
+            state.dataChat.push(action.data)
+            return {
+              ...state,
+              dataChat: state.dataChat,
+            };
   
       default:
         return state;

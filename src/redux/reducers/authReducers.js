@@ -9,6 +9,11 @@ const authReducers = (state = initialValue, action) => {
         ...state,
         isLoggedIn: true,
       };
+    case "LOGOUT":
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
 
     default:
       return state;

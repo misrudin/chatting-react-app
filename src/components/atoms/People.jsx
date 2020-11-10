@@ -2,11 +2,24 @@ import React from "react";
 import moment from "moment";
 import { noUserImage } from "../../assets";
 import { useDispatch } from "react-redux";
+import {getDataChatByIdRoom} from "../../api"
 
 const People = ({ data }) => {
   const dispatch = useDispatch()
 
+
+
   const handleSelectUser = (data)=>{
+    getDataChatByIdRoom(data.id_room).then (res=>{
+      dispatch({
+        type:"GET_DATA_CHAT",
+        data: res.data.result
+      })
+    }).catch (err=> {
+      dispatch({
+        type:"DELETE_DATA_CHAT"
+      })
+    })
     dispatch({type: "SELECT_USER",data: data})
   }
 
@@ -29,4 +42,4 @@ const People = ({ data }) => {
   );
 };
 
-export default People;
+export default React.memo(People);

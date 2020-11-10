@@ -13,4 +13,4 @@ const Message = ({ me, other, boot, content, time,onClick }) => {
   );
 };
 
-export default Message;
+export default React.memo(Message);

@@ -1,29 +1,24 @@
+
 import io from 'socket.io-client';
 let baseUrl = process.env.REACT_APP_BASE_URL_LIVE;
 
-let socket;
+const socket = io(baseUrl)
 
-// export const joinRoom =(data)=>{
-//     socket = io(baseUrl);
-//     return socket.emit('join_room', data, (d) => {
-//         console.log(d);
-//       });
-// }
+export const joinRoom =(data)=>{
+    return socket.emit('join_room', data, (d) => {
+        console.log(d);
+    });
+}
 
+export const listenMessage =()=>{
+    socket.on('new_message', (message)=>{
+        console.log(JSON.parse(message));
+       return message
+    });
+}
 
-// export const joinRoom =(data)=>{
-//     socket = io(baseUrl);
-//     return socket.emit('join_room', data, (d) => {
-//         console.log(d);
-//       });
-// }
+export const sendMessageSocket =(data)=>{
+    socket.emit('send_message_web', data);
+}
 
-// export const listenMessage =()=>{
-//     socket.on('message', (data)=>{
-//         console.log(data);
-//     });
-// }
-
-// export const sendMessage =(data)=>{
-//     socket.emit('join_room', data);
-// }
+export {socket}

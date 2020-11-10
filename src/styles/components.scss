@@ -94,7 +94,16 @@ $selected: #20283a;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  position: relative;
 }
+
+.messages-container{
+  flex: 1;
+  padding: 10px 26px;
+  display: flex;
+  flex-direction: column;
+}
+
 .message {
   max-width: 80%;
   border-radius: 5px;
