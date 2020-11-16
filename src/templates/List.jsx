@@ -23,6 +23,7 @@ const List = () => {
       });
   }, []);
 
+
   const getChatList = useCallback(() => {
     setLoading(true)
     getDataListChat()
@@ -69,7 +70,7 @@ const List = () => {
           {display === "on" ? <FiMessageSquare /> : <FiArrowLeft />}
           {/* {loading && <div className="loader-button"></div>} */}
 
-          {waiting && display === "on" && (
+          {waiting && waiting.length > 0 && display === "on" && (
             <span className="badge badge-primary custom-badge">
               {waiting && waiting?.length > 9 ? "9+" : waiting.length}
             </span>
@@ -85,7 +86,7 @@ const List = () => {
           <input
             type="text"
             className="form-control search"
-            id="search"
+            id="search-chat"
             name="search"
             autoComplete="off"
             placeholder={
@@ -100,7 +101,7 @@ const List = () => {
     </div>
 
       {/* recent */}
-      { !loading ? allData ? (
+      { !loading ? allData && allData.length>0 ? (
         <div className="list-people">
           <ListOfPeople allData={allData} />
         </div>

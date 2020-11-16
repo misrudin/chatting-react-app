@@ -34,7 +34,7 @@ const Messages = (scroll=false) => {
       type: "message",
       unique_id: data.uniqueId,
     }
-    console.log("oke");
+    console.log("new message");
     dispatch({
       type:"ADD_DATA_CHAT",
       data: newChat
@@ -78,7 +78,16 @@ const groupByDate =(data)=>{
     return groupArrays
   }
 }
- 
+
+
+const onReply = (data)=>{
+  dispatch({
+    type:'SELECT_CHAT',
+    data: data
+  })
+}
+
+ console.log(groupByDate(sortMessage(dataChat)));
 
   return (
     <div className="messages" ref={containerRef}>
@@ -90,13 +99,16 @@ const groupByDate =(data)=>{
             {
               data.chats.map((message,i)=>
                 <Message
-                key={i}
-                me={message.send_by === me && message.type === "message"}
-                other={message.send_by !== me && message.type === "message"}
-                boot={message.type === "system"}
-                content={message.message}
-                time={message.date_add}
-              />
+                  key={i}
+                  me={message.send_by === me && message.type === "message"}
+                  other={message.send_by !== me && message.type === "message"}
+                  boot={message.type === "system"}
+                  content={message.message}
+                  time={message.date_add}
+                  onReply={()=> onReply(message)}
+                  id={message.id_chat}
+                  extra={JSON.parse(message.extras)}
+                />
               )
             }
             </div>

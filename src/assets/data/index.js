@@ -1,5 +1,7 @@
 import { HomePage, LoginPage, RegisterPage } from "../../pages";
 
+import NoSelectedUser from './no-selected-user.svg'
+
 export const dataRouteDashboard = [
   {
     name: "Home Page",
@@ -29,3 +31,5 @@ export const dataRouteAuth = [
 
 export const noUserImage =
   "https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg";
+
+  export {NoSelectedUser}

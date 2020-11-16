@@ -7,6 +7,11 @@ $primary-blue: #0a80ff;
 $info: rgb(40, 167, 69);
 $warning: #ffc007;
 
+.container-main{
+  background-color: $primary-bg;
+  height: 100vh;
+}
+
 .main-content {
   height: calc(100vh - 70px);
   width: 100%;
@@ -19,14 +24,87 @@ $warning: #ffc007;
 
 .main-footer {
   background-color: $primary-bg;
-  border-top: 1px solid $border-color;
-  height: 70px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0 20px;
   position: relative;
   box-sizing: border-box;
+
+  .reply-chat{
+    width: 100%;
+    border-top: 1px solid $border-color;
+    height: 0;
+    transition: height .3s;
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    &-content{
+      background-color: $border-color;
+      border-radius: 5px;
+      flex: 1;
+      white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      p.text-will-reply{
+        color: $text-color;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        margin-top: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .user-name-reply{
+        font-size: 12px;
+        font-weight: 500;
+        margin: 0;
+        padding: 0;
+      }
+      .user-name-reply.me{
+        color: $primary-blue;
+      }
+
+      .user-name-reply.other{
+        color: $warning;
+      }
+    }
+&-action{
+  width: 40px;
+  color: $text-color;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  }
+
+  .reply-chat.show{
+    text-overflow: ellipsis;
+    .reply-chat-content{
+      padding: 5px;
+    }
+    height: 60px;
+    padding: 5px 20px;
+    transition: height .3s;
+  }
+
+  .input-chat-container.no-border{
+    border: none;
+  }
+  .input-chat-container{
+  border-top: 1px solid $border-color;
+  display: flex;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 70px;
+  align-items: center;
+  padding: 0 20px;
+
   .custom-btn {
     border-color: $border-color;
     color: $text-color;
@@ -57,15 +135,17 @@ $warning: #ffc007;
     border: 1px solid $primary-blue;
   }
 }
+}
 
-.kosong {
+.empty-user {
   display: flex;
   width: 100%;
   height: 100vh;
   justify-content: center;
   align-items: center;
-  .image-emty-messages {
+  .no-selected-user{
     width: 300px;
     height: 300px;
   }
 }
+

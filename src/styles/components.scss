@@ -2,9 +2,11 @@
 $primary-dark: #485056;
 $primary-bg: #1b2335;
 $border-color: #293244;
+$border-color-hover: #2f3a50;
 $text-color: #c5c8cc;
 $text-secondary: #767a86;
 $primary-blue: #0a80ff;
+$primary-blue-hover: #1871d1;
 $info: rgb(40, 167, 69);
 $warning: #ffc007;
 $selected: #20283a;
@@ -86,7 +88,6 @@ $selected: #20283a;
 }
 
 // MARK - message
-
 .messages {
   // background-color: $text-color;
   flex: 1;
@@ -104,62 +105,193 @@ $selected: #20283a;
   flex-direction: column;
 }
 
-.message {
-  max-width: 80%;
-  border-radius: 5px;
-  padding: 5px 10px;
+.container-chat-message {
+  width: 100%;
+  display: flex;
   margin-bottom: 20px;
-  &-content {
-    margin: 0;
-    padding: 0;
-    color: $text-color;
-    font-weight: 600;
+
+  .message {
+    max-width: 80%;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: relative;
+    cursor: pointer;
+    &-content {
+      margin: 0;
+      padding: 0;
+      color: $text-color;
+      font-weight: 600;
+    }
+    &-time {
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      color: $text-color;
+      font-weight: 500;
+      margin-top: 5px;
+      text-align: right;
+    }
+
+    .extra{
+      margin: 5px 0;
+      border-radius: 5px;
+      display: flex;
+      padding: 5px;
+      .with-image{
+        margin-right: 10px;
+        .img-product{
+          width: 50px;
+          height: 50px;
+          overflow: hidden;
+          background-color: $primary-dark;
+          border-radius: 5px;
+        }
+      }
+      .only-text{
+        .your-name{
+          margin: 0;
+          padding: 0;
+          font-weight: 500;
+          font-size: 14px;
+          color: $text-color;
+        }
+        p.content{
+          margin: 0;
+          padding: 0;
+          font-weight: 400;
+          font-size: 12px;
+          color: $text-color;
+        }
+      }
+    }
   }
-  &-time {
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
-    color: $text-color;
-    font-weight: 500;
-    margin-top: 5px;
-    text-align: right;
+
+  .message.me {
+    background-color: $primary-blue;
+    position: relative;
+    z-index: 10;
+
+   .extra{
+     background-color: rgba($color:$primary-bg, $alpha: .2);
+     .your-name{
+       color: $text-color;
+     }
+   }
+  }
+
+  .message.me:hover{
+    background-color: $primary-blue-hover;
+  }
+
+  .message.me:hover + custom-btn-reply{
+    opacity: 1;
+  }
+  
+  .message.other {
+    background: $border-color;
+    position: relative;
+
+    .extra{
+      background-color: rgba($color:$text-color , $alpha: .2);
+      .your-name{
+        color: $warning;
+      }
+    }
+  }
+
+  .message.message.other:hover{
+    background-color: $border-color-hover;
+  }
+
+  
+  .message.boot {
+    background: $primary-bg;
+    text-align: center;
+    .message-content {
+      font-size: 14px;
+    }
+    .message-time {
+      display: none;
+    }
+    .extra{
+      display: none;
+    }
+  }
+
+
+  .action-button-messages{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+
+    .custom-btn-reply{
+      opacity: .5;
+      transition: .3s;
+      transform: scale(0);
+      color: $text-color;
+      cursor: pointer;
+    }
+
+      .custom-btn-reply:hover{
+        opacity: 1;
+        transform: rotate(0deg);
+    }
   }
 }
-.message.me {
-  background-color: $border-color;
-  align-self: flex-end;
-  position: relative;
+    .action-button-messages:hover > .custom-btn-reply{
+      opacity: 1;
+      transform: scale(1);
+    }
+
+
+.message.other:hover + .action-button-messages .custom-btn-reply{
+  opacity: 1;
+  transform: scale(1);
 }
 
-.message.other {
-  background: $primary-blue;
-  align-self: flex-start;
-  position: relative;
+.message.me:hover + .action-button-messages .custom-btn-reply{
+  opacity: 1;
+  transform: scale(1);
 }
 
-.message.boot {
-  background: $primary-bg;
-  align-self: center;
-  text-align: center;
-  .message-content {
-    font-size: 14px;
-  }
-  .message-time {
+.container-chat-message.me {
+  justify-content: end;
+  flex-direction: row-reverse;
+}
+
+.container-chat-message.other {
+  justify-content: start;
+}
+
+.container-chat-message.boot {
+  justify-content: center;
+
+  .action-button-messages{
     display: none;
   }
 }
+
+
 
 .message.me::before {
   content: ' ';
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 6px solid $border-color;
+  border-left: 6px solid $primary-blue;
   border-right: 6px solid transparent;
-  border-top: 6px solid $border-color;
+  border-top: 6px solid $primary-blue;
   border-bottom: 10px solid transparent;
   right: -7px;
   top: 0;
+}
+
+.message.message.me:hover::before{
+  border-left-color: $primary-blue-hover;
+  border-top-color: $primary-blue-hover;
 }
 
 .message.other::before {
@@ -168,11 +300,16 @@ $selected: #20283a;
   height: 0px;
   position: absolute;
   border-left: 6px solid transparent;
-  border-right: 6px solid $primary-blue;
-  border-top: 6px solid $primary-blue;
+  border-right: 6px solid $border-color;
+  border-top: 6px solid $border-color;
   border-bottom: 10px solid transparent;
   left: -7px;
   top: 0px;
+}
+
+.message.message.other:hover::before{
+  border-right-color: $border-color-hover;
+  border-top-color: $border-color-hover;
 }
 
 // MARK - Loading css
