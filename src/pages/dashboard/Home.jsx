@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React,{useEffect, useState,useRef} from "react";
 import { Header } from "../../templates";
 import { Messages } from "../../components";
 import "../../styles/pages.scss";
@@ -18,6 +18,7 @@ const HomePage = () => {
   const [scroll, setScroll] = useState(false)
   const dispatch = useDispatch()
   const isMe = getData("userData")
+  const inputRef = useRef()
 
   useEffect(()=>{
     const data = {
@@ -59,7 +60,6 @@ const HomePage = () => {
     sendMessage(data).then(res=>{
       setMessage("")
       const response = res.data.result
-      console.log(response);
       const user = getData("userData")
       const postData = {
         idMessage:response.id_chat,
@@ -67,7 +67,7 @@ const HomePage = () => {
         message: response.message,
         senderName: user.username,
         senderId: user.id_customer,
-        dateAdd: moment(response.date_add).format("yyyy-MM-DDTHH:mm:ss")+".000Z",
+        dateAdd: new Date(response.date_add).toISOString(),
         type:"message",
         state:2,
         deleted:false,
@@ -101,6 +101,7 @@ const HomePage = () => {
 
 
   const clearSelec=()=>{
+    inputRef.current.focus()
     dispatch({
       type:"DESELECT_CHAT"
     })
@@ -113,7 +114,7 @@ const HomePage = () => {
       {
         selectedUser && 
         <div className="main-content">
-        <Messages scroll={scroll} />
+        <Messages scroll={scroll} onSelect={()=> inputRef.current.focus()} />
         <div className={`main-footer`}>
           <div className={`reply-chat ${selectedChat ? "show" : ""}`}>
               {selectedChat && 
@@ -141,6 +142,7 @@ const HomePage = () => {
               className="form-control input-chat"
               id="search"
               name="search"
+              ref={inputRef}
               value={message}
               onChange={e=> setMessage(e.target.value)}
               autoComplete="off"

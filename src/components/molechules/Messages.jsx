@@ -6,7 +6,7 @@ import { socket } from "../../api";
 import moment  from 'moment';
 
 
-const Messages = (scroll=false) => {
+const Messages = ({scroll=false, onSelect}) => {
   const {dataChat} = useSelector(state => state.mainState)
   const dispatch = useDispatch()
 
@@ -81,13 +81,14 @@ const groupByDate =(data)=>{
 
 
 const onReply = (data)=>{
+  onSelect()
   dispatch({
     type:'SELECT_CHAT',
     data: data
   })
 }
 
- console.log(groupByDate(sortMessage(dataChat)));
+//  console.log(groupByDate(sortMessage(dataChat)));
 
   return (
     <div className="messages" ref={containerRef}>
