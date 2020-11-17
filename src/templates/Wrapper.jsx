@@ -3,8 +3,10 @@ import React from "react";
 // import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import List from "./List";
+import {  useSelector } from "react-redux";
 
 const Wrapper = ({ auth, children }) => {
+  const {selectedUser,dataChat} = useSelector(state => state.mainState)
   return (
     <>
       {auth ? (
@@ -17,7 +19,7 @@ const Wrapper = ({ auth, children }) => {
             <List />
           </div>
 
-          <main className="app-main">{children}</main>
+          <main className={`app-main ${selectedUser && dataChat.length > 0 ? "show" : ""}`}>{children}</main>
         </div>
       ) : (
         <main className="app-main">{children}</main>

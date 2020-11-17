@@ -23,15 +23,37 @@ $warning: #ffc007;
 
   @include xs {
     flex-direction: column-reverse;
+    .app-main.show {
+      transition: .3s;
+      transition-delay: .1s;
+      left: 0;
+      width: 100vw;
+    }
   }
   @include sm {
     flex-direction: column-reverse;
+    .app-main.show {
+      transition: .3s;
+      transition-delay: .1s;
+      left: 0;
+      width: 100vw;
+    }
   }
   @include lg {
     flex-direction: row;
+    .app-main.show {
+      position: relative;
+      width: calc(100vw - 350px - 80px);
+      display: block;
+    }
   }
   @include xl {
     flex-direction: row;
+    .app-main.show {
+      position: relative;
+      width: calc(100vw - 350px - 80px);
+      display: block;
+    }
   }
 
   &-sidebar {
@@ -88,15 +110,28 @@ $warning: #ffc007;
     display: flex;
     flex-direction: column;
     @include xs {
-      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      overflow: hidden;
     }
     @include sm {
-      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      overflow: hidden;
     }
     @include lg {
+      position: relative;
+      width: calc(100vw - 350px - 80px);
       display: block;
+      left: 0;
     }
     @include xl {
+      position: relative;
+      width: calc(100vw - 350px - 80px);
       display: block;
     }
   }

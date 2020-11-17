@@ -4,21 +4,23 @@ let baseUrl = process.env.REACT_APP_BASE_URL_LIVE;
 
 const socket = io(baseUrl)
 
-export const joinRoom =(data)=>{
-    return socket.emit('join_room', data, (d) => {
-        console.log(d);
-    });
-}
+// export const joinRoom =(data)=>{
+//     return socket.emit('join_room', data, (d) => {
+//         console.log(d);
+//     });
+// }
 
-export const listenMessage =()=>{
-    socket.on('new_message', (message)=>{
-        console.log(JSON.parse(message));
-       return message
+export const connectToSocket =(data)=>{
+    socket.on('connect', ()=>{
+        console.log("connect");
+        socket.emit('join_room', data, (d) => {
+            console.log("Joined Room",d);
+        });
     });
 }
 
 export const sendMessageSocket =(data)=>{
-    socket.emit('send_message_web', data);
+    socket.emit('send_message', data);
 }
 
 export {socket}

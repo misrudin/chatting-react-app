@@ -4,10 +4,17 @@ import {FaReply} from 'react-icons/fa'
 import {Tooltip, OverlayTrigger} from 'react-bootstrap'
 // import {noUserImage} from '../../assets'/
 
-const Message = ({ me, other, boot, content, time, onClick,onReply ,id,extra}) => {
+const Message = React.forwardRef((props,ref) => {
+  const { me, other, boot, content, time, onClick,onReply ,id,extra} = props
+
+  const handleClick=(data)=>{
+    if (data){
+      onClick(data)
+    }
+  }
 return (
-    <div className={`container-chat-message ${me ? "me" : other ? "other" : boot ? "boot" : "" }`}>
-      <div onClick={onClick} className={`message ${me ? "me" : other ? "other" : boot ? "boot" : "" }`}>
+    <div ref={ref} className={`container-chat-message ${me ? "me" : other ? "other" : boot ? "boot" : "" }`}>
+      <div onClick={()=> handleClick(extra)} className={`message ${me ? "me" : other ? "other" : boot ? "boot" : "" }`}>
         {extra && 
         <div className="extra">
         {
@@ -39,6 +46,6 @@ return (
         </OverlayTrigger>
       </div>
     </div>
-)};
+)})
 
 export default React.memo(Message);

@@ -116,6 +116,7 @@ $selected: #20283a;
     padding: 5px 10px;
     position: relative;
     cursor: pointer;
+    // margin-left: -50px;
     &-content {
       margin: 0;
       padding: 0;
@@ -166,15 +167,21 @@ $selected: #20283a;
     }
   }
 
+
+
   .message.me {
     background-color: $primary-blue;
     position: relative;
     z-index: 10;
 
+    .message-content{
+      color: #fff;
+    }
+
    .extra{
-     background-color: rgba($color:$primary-bg, $alpha: .2);
+     background-color: rgba($color: $primary-bg, $alpha: .37);
      .your-name{
-       color: $text-color;
+       color: #fff;
      }
    }
   }
@@ -192,7 +199,7 @@ $selected: #20283a;
     position: relative;
 
     .extra{
-      background-color: rgba($color:$text-color , $alpha: .2);
+      background-color: rgba($color: $text-color , $alpha: .2);
       .your-name{
         color: $warning;
       }
@@ -262,6 +269,12 @@ $selected: #20283a;
   flex-direction: row-reverse;
 }
 
+.container-chat-message.target{
+  .message{
+    animation: goyang 0.5s linear infinite;
+  }
+}
+
 .container-chat-message.other {
   justify-content: start;
 }
@@ -328,5 +341,20 @@ $selected: #20283a;
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+
+// key
+
+@keyframes goyang {
+  0% {
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
   }
 }

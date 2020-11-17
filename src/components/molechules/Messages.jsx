@@ -3,7 +3,6 @@ import { Message } from "../atoms";
 import { getData } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../api";
-import moment  from 'moment';
 
 
 const Messages = ({scroll=false, onSelect}) => {
@@ -20,27 +19,28 @@ const Messages = ({scroll=false, onSelect}) => {
     _scrollToBottom();
   }, [dataChat,scroll]);
 
+  const _scrollToBottom = () => {
+    containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  };
   useEffect(()=>{
     socket.on('new_message', (message)=>{
-    let data = JSON.parse(message)
-    const newChat = {
-      date_add: moment(new Date(data.dateAdd)).format("yyyy-MM-DDTHH:mm:ss")+".000Z",
-      deleted: false,
-      id_chat: data.idMessage,
-      id_room: data.idRoom,
-      message:  data.message,
-      send_by: data.senderId,
-      status: data.state,
-      type: "message",
-      unique_id: data.uniqueId,
+    if (!message.extras){
+      message.extras = null
+    }else {
+      message.extras = JSON.stringify(message.extras)
     }
-    console.log("new message");
+    message.type = "message"
+    message.send_by = message.sender_by
+    // console.log("new message", message);
     dispatch({
       type:"ADD_DATA_CHAT",
-      data: newChat
+      data: message
     })
+    _scrollToBottom()
   });
   },[dispatch])
+
+
 
 
   const sortMessage = (data) => {
@@ -59,7 +59,7 @@ const Messages = ({scroll=false, onSelect}) => {
 const groupByDate =(data)=>{
   if(data){
     const groups = data.reduce((groups, chat) => {
-      const date = chat.date_add.split('T')[0];
+      const date = chat.date_add.split(' ')[0];
       if (!groups[date]) {
         groups[date] = [];
       }
@@ -79,6 +79,29 @@ const groupByDate =(data)=>{
   }
 }
 
+// const list = dataChat && groupByDate(sortMessage())
+const refs = dataChat.reduce((acc, value) => {
+  acc[value.id_chat] = React.createRef();
+  return acc;
+}, {});
+
+const handleClick = data =>{
+  refs[data.id_chat].current.scrollIntoView({
+    // behavior: '',
+    block: 'center',
+  });
+  refs[data.id_chat].current.classList.add('target')
+  deleteClass(refs[data.id_chat].current)
+}
+    
+
+
+const deleteClass = (el)=>{
+  setTimeout(()=>{
+      el.classList.remove('target')  
+  },1000)
+}
+
 
 const onReply = (data)=>{
   onSelect()
@@ -89,6 +112,7 @@ const onReply = (data)=>{
 }
 
 //  console.log(groupByDate(sortMessage(dataChat)));
+// console.log(dataChat);
 
   return (
     <div className="messages" ref={containerRef}>
@@ -101,6 +125,7 @@ const onReply = (data)=>{
               data.chats.map((message,i)=>
                 <Message
                   key={i}
+                  ref={refs[message.id_chat]}
                   me={message.send_by === me && message.type === "message"}
                   other={message.send_by !== me && message.type === "message"}
                   boot={message.type === "system"}
@@ -109,6 +134,7 @@ const onReply = (data)=>{
                   onReply={()=> onReply(message)}
                   id={message.id_chat}
                   extra={JSON.parse(message.extras)}
+                  onClick={(data)=>handleClick(data)}
                 />
               )
             }

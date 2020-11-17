@@ -4,7 +4,7 @@ import { Messages } from "../../components";
 import "../../styles/pages.scss";
 import { FiSmile, FiPaperclip, FiSend } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { sendMessage,joinRoom,sendMessageSocket} from "../../api";
+import { sendMessage,sendMessageSocket, connectToSocket} from "../../api";
 import moment from 'moment';
 
 import {getData, randomString} from '../../utils'
@@ -14,7 +14,7 @@ import { NoSelectedUser } from "../../assets";
 const HomePage = () => {
   const {selectedUser} = useSelector(state => state.mainState)
   const {selectedChat} = useSelector(state => state.chatState)
-  const [message, setMessage] = useState("")
+  // const [message, setMessage] = useState("")
   const [scroll, setScroll] = useState(false)
   const dispatch = useDispatch()
   const isMe = getData("userData")
@@ -25,22 +25,29 @@ const HomePage = () => {
       id_customer: getData("userData").id_customer,
       is_admin: true
     }
-    joinRoom(data)
+    // joinRoom(data)
+
+    connectToSocket(data)
   },[])
+
 
   // console.log(selectedUser);
 
   // console.log(getData("userData"));
 
-  // console.log(selectedChat);
+  // console.log(selectedChat?.extras);
 
 
   const onSendMessage=()=>{
+    let message = inputRef.current.value
+    if(message === "") {
+      return
+    }
     const timeinmilis = new Date().getTime()
     const randomStr = randomString(8)
     const uid =  `web_${timeinmilis}${randomStr}`
 
-    const extras = selectedChat ? {
+    const extras = selectedChat ?  {
       type: "message",
       id_chat: selectedChat.id_chat,
       message: selectedChat.message,
@@ -58,7 +65,8 @@ const HomePage = () => {
       extras: extras
     }
     sendMessage(data).then(res=>{
-      setMessage("")
+      // setMessage("")
+      inputRef.current.value = ""
       const response = res.data.result
       const user = getData("userData")
       const postData = {
@@ -67,12 +75,12 @@ const HomePage = () => {
         message: response.message,
         senderName: user.username,
         senderId: user.id_customer,
-        dateAdd: new Date(response.date_add).toISOString(),
+        dateAdd: response.date_add,
         type:"message",
         state:2,
         deleted:false,
         uniqueId: response.unique_id,
-        extras: response.extras
+        extras: extras
       }
 
       const newChat = {
@@ -85,7 +93,7 @@ const HomePage = () => {
         status: postData.state,
         type: postData.type,
         unique_id: data.unique_id,
-        extras: JSON.stringify(data.extras)
+        extras: extras ? JSON.stringify(extras) : null
       }
       dispatch({
         type:"ADD_DATA_CHAT",
@@ -143,8 +151,8 @@ const HomePage = () => {
               id="search"
               name="search"
               ref={inputRef}
-              value={message}
-              onChange={e=> setMessage(e.target.value)}
+              // value={message}
+              // onChange={e=> setMessage(e.target.value)}
               autoComplete="off"
               placeholder="Write a message..."
               onKeyPress={e=> e.key === "Enter" ? onSendMessage() : null}

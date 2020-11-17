@@ -17,6 +17,12 @@ export const getDataChatByIdRoom = async (id_room) => {
   return await axios.get(baseUrl + `chat/${id_room}`);
 };
 
+// export const getDataChatByIdRoom = async (id_room) => {
+//   return await axios.post(baseUrl + `room/get_room_chat`, {
+//     user_id: id_room,
+//     length: 100
+//   });
+// };
 
 export const sendMessage = async (data) => {
   return await axios.post(baseUrl + `chat/send_message`,data);
