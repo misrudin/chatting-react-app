@@ -4,7 +4,7 @@ const initialValue = {
   newChat: null
 };
 
-const authReducers = (state = initialValue, action) => {
+const mainReducers = (state = initialValue, action) => {
   switch (action.type) {
     case "SELECT_USER":
       return {
@@ -50,4 +50,4 @@ const authReducers = (state = initialValue, action) => {
   }
 };
 
-export default authReducers;
+export default mainReducers;
