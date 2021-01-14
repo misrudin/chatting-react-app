@@ -30,7 +30,7 @@ return (
       </div>
         }
         <p className="message-content">{content}</p>
-        <p className="message-time">{moment(new Date(time)).format("HH:mm A")}</p>
+        <p className="message-time">{time}</p>
       </div>
       <div className="action-button-messages" onClick={()=>onReply()}>
         <OverlayTrigger

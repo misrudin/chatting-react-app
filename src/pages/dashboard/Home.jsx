@@ -38,7 +38,7 @@ const HomePage = () => {
   // console.log(selectedChat?.extras);
 
 
-  const onSendMessage=()=>{
+  const onSendMessage=async()=>{
     let message = inputRef.current.value
     if(message === "") {
       return
@@ -65,26 +65,25 @@ const HomePage = () => {
       extras: extras
     }
     sendMessage(data).then(res=>{
-      // setMessage("")
       inputRef.current.value = ""
       const response = res.data.result
       const user = getData("userData")
       const postData = {
-        idMessage:response.id_chat,
-        idRoom: response.room_id,
+        id_message:response.id_chat,
+        id_room: response.room_id,
         message: response.message,
-        senderName: user.username,
-        senderId: user.id_customer,
-        dateAdd: response.date_add,
+        sender_name: user.username,
+        sender_id: user.id_customer,
+        date_add: response.date_add,
         type:"message",
         state:2,
         deleted:false,
-        uniqueId: response.unique_id,
+        unique_id: response.unique_id,
         extras: extras
       }
 
       const newChat = {
-        date_add: postData.dateAdd,
+        date_add: postData.date_add,
         deleted: false,
         id_chat: response.id_chat,
         id_room: response.room_id,
